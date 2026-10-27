@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --font-tampil: 'Outfit', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --animate-melayang: melayang 12s ease-in-out infinite;
+    --animate-muncul: muncul 0.4s ease-out both;
+
+    @keyframes melayang {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(20px, 30px); }
+    }
+    @keyframes muncul {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+}
+
+/* Perbaikan mode gelap untuk komponen yang belum memakai varian dark: */
+.dark .bg-white { background-color: #0f172a; }
+.dark .bg-slate-50:not(.min-h-screen) { background-color: #1e293b; }
+.dark .bg-slate-100 { background-color: #1e293b; }
+.dark .hover\:bg-slate-50:hover,
+.dark .hover\:bg-slate-100:hover { background-color: #1e293b; }
+
+.dark { color-scheme: dark; }
+
+.dark .border-slate-200,
+.dark .border-slate-300 { border-color: #334155; }
+
+.dark .text-slate-700 { color: #cbd5e1; }
+.dark .text-slate-600,
+.dark .text-slate-500 { color: #94a3b8; }
+
+.dark .text-emerald-700 { color: #34d399; }
+.dark .text-red-600 { color: #f87171; }
+
+.dark .bg-red-50 { background-color: rgb(244 63 94 / 0.1); }
+.dark .border-red-200 { border-color: rgb(244 63 94 / 0.3); }
+.dark .text-red-700 { color: #fca5a5; }
+.dark .bg-emerald-100 { background-color: rgb(16 185 129 / 0.15); }
+.dark .text-emerald-800 { color: #6ee7b7; }

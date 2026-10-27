@@ -1,0 +1,67 @@
+GET http://127.0.0.1:3000/api/health
+// simpan token
+
+###
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{ "nama": "Andi", "email": "andi@mail.com", "password": "rahasia123" }
+
+###
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{ "email": "andi@mail.com", "password": "rahasia123" }
+> {% client.global.set("tokenAndi", response.body.token); %}
+
+
+###
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzkyNzI0MDI5LCJleHAiOjE3OTMzMjg4Mjl9.xDkWASeZqvMbhQhVgSRobz1iwM02PCkENX-Q0MW3Hm0
+
+###
+GET http://localhost:3000/api/auth/me
+###
+
+POST http://localhost:3000/api/transaksi
+Content-Type: application/json
+Authorization: Bearer {{tokenAndi}}
+
+{ "kategori_id": 6, "jenis": "keluar", "nominal": 25000, "tanggal": "2026-10-22", "catatan": "punya Andi (tes)" }
+
+> {% client.global.set("idAndi", response.body.id); %}
+
+###
+GET http://localhost:3000/api/transaksi
+Authorization: Bearer {{tokenAndi}}
+
+###
+GET http://localhost:3000/api/transaksi
+
+###
+GET http://localhost:3000/api/ringkasan
+Authorization: Bearer {{tokenAndi}}
+
+### 6. Daftar akun kedua (Budi)
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{ "nama": "Budi", "email": "budi@mail.com", "password": "rahasia456" }
+
+> {% client.global.set("tokenBudi", response.body.token); %}
+###
+
+GET http://localhost:3000/api/transaksi
+Authorization: Bearer {{tokenBudi}}
+
+###
+GET http://localhost:3000/api/transaksi/{{idAndi}}
+Authorization: Bearer {{tokenBudi}}
+
+###
+DELETE http://localhost:3000/api/transaksi/{{idAndi}}
+Authorization: Bearer {{tokenBudi}}
+
+###
+DELETE http://localhost:3000/api/transaksi/{{idAndi}}
+Authorization: Bearer {{tokenAndi}}
