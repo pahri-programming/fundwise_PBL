@@ -10,6 +10,7 @@ import {
 import {formatRupiah} from '../lib/format.js';
 import PengaturanForm from '../components/PengaturanForm.jsx';
 import RingkasanKartu from '../components/RingkasanKartu.jsx';
+import AnalisisPengeluaran from '../components/AnalisisPengeluaran.jsx';
 import TransaksiForm from '../components/TransaksiForm.jsx';
 import TransaksiList from '../components/TransaksiList.jsx';
 
@@ -207,6 +208,9 @@ export default function DashboardPage({pengguna, onKeluar}) {
                             />
                         )}
 
+                        <div className="mt-6">
+                            <AnalisisPengeluaran transaksi={transaksi} />
+                        </div>
                         <div className="mt-6 grid items-start gap-6 lg:grid-cols-[320px_1fr]">
                             <TransaksiForm
                                 key={`${sedangEdit?.id ?? 'baru'}-${formKey}`}

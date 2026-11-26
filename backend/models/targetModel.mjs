@@ -63,7 +63,7 @@ const Target = {
             const [[hitung]] = await koneksi.query(
                 `SELECT
                      (SELECT COALESCE(SUM(CASE WHEN jenis = 'masuk' THEN nominal ELSE -nominal END), 0)
-                      FROM transaksi WHERE user_id = ?) AS arus,
+                      FROM transaksi WHERE user_id = ? AND tanggal <= ?) AS arus,
                      (SELECT COALESCE(SUM(s.nominal), 0)
                       FROM setoran_tabungan s
                                JOIN target_tabungan t ON t.id = s.target_id

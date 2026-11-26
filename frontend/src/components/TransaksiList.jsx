@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { formatRupiah, formatTanggal } from '../lib/format.js';
 import { kelasKartu, kelasTombolIkon, kelasTombolTepi } from '../lib/gaya.js';
+import CetakRiwayat from './CetakRiwayat.jsx';
 import Ikon from './Ikon.jsx';
 
 const UKURAN_HALAMAN = 10;
@@ -13,6 +14,7 @@ export default function TransaksiList({ transaksi, sedangEditId, onEdit, onHapus
     return (
         <section className={kelasKartu}>
             <h2 className="font-bold">Riwayat transaksi</h2>
+            <CetakRiwayat transaksi={transaksi} />
 
             {transaksi.length === 0 ? (
                 <p className="mt-4 text-sm text-slate-600 dark:text-slate-400">

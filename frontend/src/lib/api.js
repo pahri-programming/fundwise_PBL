@@ -36,6 +36,7 @@ export const ambilRingkasan = () => request('/ringkasan');
 export const ambilKategori = () => request('/kategori');
 export const ambilTransaksi = () => request('/transaksi');
 export const ambilPengaturan = () => request('/pengaturan');
+export const ambilAnalisis = (bulan) => request(`/analisis?bulan=${bulan}`);
 
 export const tambahTransaksi = (data) =>
     request('/transaksi', { method: 'POST', body: JSON.stringify(data) });

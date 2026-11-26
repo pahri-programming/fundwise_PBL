@@ -19,6 +19,7 @@ import {
     setorKeTarget,
     hapusTarget,
 } from '../controllers/targetController.mjs';
+import { getAnalisis } from '../controllers/analisisController.mjs';
 
 const router = Router();
 
@@ -39,5 +40,7 @@ router.post('/target', tambahTarget);
 router.post('/target/:id/setoran', setorKeTarget);
 router.delete('/target/:id', hapusTarget);
 
+
+router.get('/analisis', getAnalisis);
 
 export default router;

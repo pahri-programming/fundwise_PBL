@@ -1,6 +1,6 @@
 import Transaksi from '../models/transaksiModel.mjs';
 import Kategori from '../models/kategoriModel.mjs';
-import { tanggalValid } from '../utils/tanggal.mjs';
+import { tanggalValid,hariIni, selisihHari } from '../utils/tanggal.mjs';
 
 const jenis_valid = ['masuk', 'keluar'];
 const nominal_maks = 9999999999999; // batas decimal(15,2)
@@ -14,14 +14,18 @@ const periksaInput = async (body) => {
     }
 
     const angka = Number(nominal);
-    if (!Number.isFinite(angka) || angka <= 0) {
-        return { error: 'Nominal harus berupa angka lebih dari 0' };
+    if (!Number.isInteger(angka) || angka <= 0) {
+        return { error: 'Nominal harus bilangan bulat lebih dari 0' };
     }
     if (angka > nominal_maks) {
         return { error: 'Nominal terlalu besar' };
     }
     if (!tanggalValid(tanggal)) {
         return { error: 'Tanggal harus berformat YYYY-MM-DD dan valid' };
+    }
+    const selisih = selisihHari(hariIni(), tanggal);
+    if (selisih > 365 || selisih < -3650) {
+        return { error: 'Tanggal di luar rentang yang diizinkan' };
     }
 
     const idKategori = Number(kategori_id);

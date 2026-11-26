@@ -18,7 +18,7 @@ export const getRingkasan = async (req, res) => {
         }
 
         const [saldoDb, total, pengaturan, totalTabungan] = await Promise.all([
-            Ringkasan.saldo(req.user.id),
+            Ringkasan.saldo(req.user.id, hariIni()),
             Ringkasan.totalBulan(req.user.id, bulan),
             Pengaturan.get(req.user.id),
             Ringkasan.totalTabungan(req.user.id),

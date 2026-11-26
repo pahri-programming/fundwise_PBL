@@ -1,16 +1,17 @@
 import db from '../config/db.mjs';
 
 const Ringkasan = {
-    async saldo(userId) {
+
+    async saldo(userId, sampai) {
         const [rows] = await db.query(
             `SELECT COALESCE((SELECT SUM(CASE WHEN jenis = 'masuk' THEN nominal ELSE -nominal END)
                               FROM transaksi
-                              WHERE user_id = ?), 0)
+                              WHERE user_id = ? AND tanggal <= ?), 0)
                         - COALESCE((SELECT SUM(s.nominal)
                                     FROM setoran_tabungan s
                                              JOIN target_tabungan t ON t.id = s.target_id
                                     WHERE t.user_id = ?), 0) AS saldo`,
-            [userId, userId]
+            [userId, sampai, userId]
         );
         return rows[0].saldo;
     },
@@ -32,12 +33,11 @@ const Ringkasan = {
                     COALESCE(SUM(CASE WHEN jenis = 'masuk' THEN 0 ELSE nominal END), 0) AS pengeluaran
              FROM transaksi
              WHERE user_id = ?
-               AND DATE_FORMAT(tanggal, '%Y-%m') = ?`,
-            [userId, bulan]
+               AND tanggal >= ? AND tanggal < DATE_ADD(?, INTERVAL 1 MONTH)`,
+            [userId, `${bulan}-01`, `${bulan}-01`]
         );
         return rows[0];
     },
 };
-
 
 export default Ringkasan;

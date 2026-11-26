@@ -17,6 +17,13 @@
         to { opacity: 1; transform: translateY(0); }
     }
 }
+#area-cetak { display: none; }
+
+@media print {
+    body * { visibility: hidden; }
+    #area-cetak, #area-cetak * { visibility: visible; color: #000; }
+    #area-cetak { display: block; position: absolute; left: 0; top: 0; width: 100%; background: #fff; }
+}
 
 /* Perbaikan mode gelap untuk komponen yang belum memakai varian dark: */
 .dark .bg-white { background-color: #0f172a; }
